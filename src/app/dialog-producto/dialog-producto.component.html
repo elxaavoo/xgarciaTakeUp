@@ -1,0 +1,15 @@
+<div>
+    <h1 mat-dialog-title>Producto: {{data.title}}</h1>
+    <div mat-dialog-content>
+        <div style="display: flex; flex-direction: column; margin:1rem auto; max-width: 600px; padding: 1rem;">
+            <img [src]="data.img" alt="jose">
+            <h1>{{data.title}}</h1>
+            <p><strong>Descripción: </strong>{{data.description}}</p>
+            <p><strong>Precio:</strong> ${{data.price}} </p>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="closeModal()"><strong class="hhv2">Cancelar</strong></button>
+        <button mat-button [mat-dialog-close]="data" cdkFocusInitial><strong class="hhv1">Confirmar</strong></button>
+    </div>
+</div>

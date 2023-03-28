@@ -1,0 +1,28 @@
+.myModal{
+    margin: 0 auto;
+}
+
+::ng-deep.cdk-overlay-pane {
+    margin: 0 auto ;
+    transform: translate(10px, -1063px);
+    z-index: 4000;
+    width: 40%;
+}
+
+::ng-deep.cdk-overlay-container{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.hhv1:hover{
+    transition: 0.3s;
+    color: green;
+}
+
+.hhv2:hover{
+    transition: 0.3s;
+    color: red;
+}
+

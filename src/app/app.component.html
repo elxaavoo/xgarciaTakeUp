@@ -1,0 +1,100 @@
+<!--NAVEGADOR-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light p-2 border-bottom">
+  <a class="navbar-brand mx-3" href="#">
+    <img src="../assets/defaultImg.svg" width="30" height="30" alt=" logo">
+  </a>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav ms-auto">
+      <a class="nav-item nav-link active px-3" href="#">Home</a>
+      <a class="nav-item nav-link px-3" href="#">About</a>
+      <a class="nav-item nav-link px-3" href="#">Shop</a>
+      <a class="nav-item nav-link px-3" href="#">Help</a>
+      <button type="button" class="btn btn-dark">Your Cart</button>
+    </div>
+  </div>
+</nav>
+<!--BODY-->
+<div class="aside_and_main">
+  <!--ASIDE-->
+  <aside class="p-3 bg-light  m-0">
+    <div class="border-right-">
+      <!-- FILTROS -->
+      <div class="b1">
+        <!-- FILTRO TITULO -->
+        <input type="text" class="form-control my-2" id="filtroSearch" placeholder="Search" [(ngModel)]="busqueda" (keyup)="search(busqueda)">
+        <!-- FILTRO PRECIO -->
+        <input type="number" class="form-control" id="filtroPrecio" placeholder="Precio Máximo" [(ngModel)]="filtro">
+        <button type="button" class="btn btn-outline-dark my-2" (click)="filtrarPrecio(filtro)">Filter</button>
+        <button type="button " class="btn btn-outline-dark my-2" (click)="resetProducts()">Reset FIlter</button>
+      </div><br>
+      <!-- PRODUCTOS -->
+      <div class="row">
+        <h4>Products</h4> <br>
+        <div *ngFor="let product of productosFiltrados; let index = index" >
+          <div class="producto_lateral border-bottom mb-1">
+            <a (click)="changeData(product)" class="hov"><p>Producto {{ index+1 }}</p> <img src="../assets/flecha_derecha.svg" alt="flecha derecha"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <!--MAIN-->
+  <main class="border p-4">
+    <!-- PRODUCTO -->
+    <div class="row">
+      <div class="col-6 img_product">
+        <img [src]="product.img" alt="">
+      </div>
+      <div class="col-6">
+        <div class="p-2">
+          <h1>{{product.title}}</h1>
+          <hr>
+          <h3>${{product.price}}</h3>
+          <hr>
+          <p>{{product.description}}</p>
+          <hr>
+          <button type="button " class="btn btn-dark my-2" (click)="borrarProducto(product)">Delete Item</button>
+        </div>
+      </div>
+      <!-- PRODUCTOS SIMILARES -->
+      <div class="row border-bottom border-top" >
+        <div class="text-center">
+          <h1 class="mt-4">Similar Products</h1>
+          <div *ngIf="isEmptySubList(product,'similares'); else elseBlock">
+              <p class="text-center
+              ">No hay ningún producto similar.</p>
+          </div>
+          <ng-template #elseBlock>
+            <div class="row">
+              <div *ngFor="let productID of product.similares; let index = index" class="col-6" >
+                <img [src]="getProductById(productID)?.img" alt="imagen" class="similares" (click)="openDialog(productID)">
+                <h5>{{getProductById(productID)?.title}}</h5>
+                <p>${{getProductById(productID)?.price}}</p>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+     <!-- REVIEWS DE LA GENTE -->
+      <div class="row p-5 border-bottom">
+        <h1>Reviews</h1>
+        <div *ngIf="isEmptySubList(product,'review'); else elseReview">
+              <p class="text-center">No hay ninguna review.</p>
+          </div>
+          <!-- TEMPLATE ( Si hay reviews ) -->
+          <ng-template #elseReview>
+            <div class="row">
+              <div *ngFor="let i of product.review; let index = index" class="col-12 review" >
+                <h5>{{i.user}}</h5>
+                <p>{{i.desc}}</p>
+              </div>
+            </div>
+          </ng-template>
+      </div>
+    </div> 
+  </main>
+</div>
+
+
+
+
