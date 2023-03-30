@@ -1,0 +1,20 @@
+<!--ASIDE-->
+  <aside class="p-3 bg-light m-0">
+    <div class="border-right-">
+      <!-- FILTROS -->
+      <div class="b1">
+        <!-- FILTRO TITULO -->
+        <input type="text" class="form-control my-2" id="filtroSearch" placeholder="Search" [(ngModel)]="busquedaFiltro" (keyup)="pasarSearch(busquedaFiltro)">
+        <!-- FILTRO PRECIO -->
+        <input type="number" class="form-control" id="filtroPrecio" placeholder="Precio Máximo" [(ngModel)]="filtroPrecio">
+
+        <button type="button" class="btn my-2" [ngClass]="{'btn-outline-dark': filtroPrecio === 0 || filtroPrecio === null, 'btn-success': filtroPrecio > 0 || filtroPrecio < 0}" (click)="pasarFiltroPrecio(filtroPrecio)">Filter</button>
+        <button type="reset " class="btn btn-outline-dark my-2" (click)="giveEventResetProductos(0)">Reset Filter</button>
+      </div><br>
+      <!-- PRODUCTOS -->
+      <div class="row">
+        <h4>Products</h4> <br>
+        <app-list-productos *ngFor="let producto of productsFiltrados; let index = index" [product]="producto" [index]="index" (changeSelectedProduct)="changeData($event)"></app-list-productos>
+      </div>
+    </div>
+  </aside>

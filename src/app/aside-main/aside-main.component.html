@@ -1,0 +1,24 @@
+<div class="aside_and_main">
+    <app-aside  [productos]="productos"
+                [filtroPrecio]="filtroPrecio"
+                [busquedaFiltro]="busquedaFiltro"
+                [productsFiltrados]="productsFiltrados"
+                [selectedProduct]="selectedProduct"
+                (search)="pasarSearch($event)"
+                (filtrarPrecio)="pasarFiltroPrecio($event)"
+                (resetProducts)="giveEventResetProductos($event)"
+                (changeSelectedProduct)="changeData($event)">
+    </app-aside>
+    <app-main   [productos]="productos"
+                [productsFiltrados]="productsFiltrados"
+                [selectedProduct]="selectedProduct"
+                (giveProductById)="getProductById($event)"
+                (giveEventToOpenDialog)="openDialog($event)"
+                (knowIsEsmptySubList)="isEmptySubList($event,$event)"
+                (deleteProduct)="borrarProducto($event)"
+                (changeFavProfuct)="changeFav($event)"
+                (calificarProduct)="calificar($event)"
+                (calificarProductClick)="calificarClick($event)">
+                
+    </app-main>
+</div>

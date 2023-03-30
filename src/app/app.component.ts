@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Producto } from 'src/app/producto';
+import { clickCali } from './clickCali';
 import { DialogProductoComponent } from './dialog-producto/dialog-producto.component';
 
 type keyproduct = "similares" | "review";
@@ -11,8 +12,20 @@ type keyproduct = "similares" | "review";
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'takeup_clone';
+  @Output() search = new EventEmitter<string>();
+  @Output() filtrarPrecio = new EventEmitter<number>();
+  @Output() resetProducts = new EventEmitter<number>();
+  @Output() changeSelectedProduct = new EventEmitter<Producto>();
 
+  @Output() knowIsEsmptySubList = new EventEmitter<any>();
+  @Output() giveProductById = new EventEmitter<number>();
+  @Output() giveEventToOpenDialog = new EventEmitter<number>();
+  @Output() deleteProduct = new EventEmitter<Producto>();
+  @Output() changeFavProfuct = new EventEmitter();
+  @Output() calificarProduct = new EventEmitter<number>();
+  @Output() calificarProductClick = new EventEmitter<clickCali>();
+
+  title = 'takeup_clone';
   filtro = 0;
   busqueda = '';
 
@@ -22,16 +35,20 @@ export class AppComponent {
       title: 'Camiseta Nike',
       price: 30,
       description: 'Camiseta de Nike Negra, talla L',
-      img: 'https://shoppinginibiza.com/143351-large_default/nike-camiseta-negra-ar5254-010-nino.jpg',
+      calificacion: 4,
+      img: 'https://static.wixstatic.com/media/9622a0_6f4116c9885f403f83e59c1279720afa~mv2.png/v1/fill/w_550,h_550,al_c,q_85,enc_auto/9622a0_6f4116c9885f403f83e59c1279720afa~mv2.png',
+      fav: false,
       similares: [2, 3],
       review: [
         {
           user: 'Xavier Garcia',
           desc: 'La camiseta negra, es de las mejores camisas que me he comprado en mi vida :)',
+          calificacion: 5,
         },
         {
           user: 'Jose Juan',
           desc: 'Me gusta más la blanca, pero la negra también esta muy chulaaaa',
+          calificacion: 3,
         },
       ],
     },
@@ -40,12 +57,15 @@ export class AppComponent {
       title: 'Pantalon Nike',
       price: 20,
       description: 'Pantalon Nike Color Negro, Talla L',
-      img: 'https://chemasport.es/23899-thickbox_default/pantalon-nike-sportswear-h-negro.jpg',
+      calificacion: 3,
+      img: 'https://www.geomix.at/shop/images/0-0-115544.png',
+      fav: false,
       similares: [1, 3],
       review: [
         {
           user: 'Xavier Garcia',
-          desc: 'De los mejores pantalones que he tenido',
+          desc: 'Unos pantalones normales y corrientes de nike',
+          calificacion: 3,
         },
       ],
     },
@@ -54,7 +74,9 @@ export class AppComponent {
       title: 'Chaqueta Nike',
       price: 90,
       description: 'Chaqueta Nike Color Negro Talla L',
-      img: 'https://media.sportisgood.es/catalog/product/cache/image/1800x/9df78eab33525d08d6e5fb8d27136e95/n/i/nike_dr9605-010-vpsrh001.jpg',
+      calificacion: 2,
+      img: 'https://calzetonia.com/wp-content/uploads/2022/11/CF3A5F5B-9D49-4754-B01F-163D6AAE920F.png',
+      fav: false,
       similares: [1, 2],
     },
     {
@@ -62,14 +84,18 @@ export class AppComponent {
       title: 'Gorra New Era',
       price: 40,
       description: 'Gorra New Era Lakers Amarilla/Morada Size 63',
-      img: 'https://static.caphunters.es/13560-large_default/gorra-plana-amarilla-ajustada-59fifty-essential-de-los-angeles-lakers-nba-de-new-era.jpg',
+      calificacion: 1,
+      img: 'https://inussualbasket.com/wp-content/uploads/2022/06/ck1830-728-parte-frontal.png',
+      fav: false,
     },
     {
       id: 5,
       title: 'Calcetines Jordan',
       price: 15,
       description: 'Calcetines Blancos de Jordan talla 44',
-      img: 'https://24segons.es/159253-large_default/calcetines-jordan-everyday-crew-white-3pk.jpg',
+      calificacion: 0,
+      img: 'https://static.nike.com/a/images/t_default/rlf3uwbuwsedmkujawox/jordan-flight-calcetines-largos-de-baloncesto-w8ToGqRK.png',
+      fav: false,
       similares: [6],
     },
     {
@@ -77,12 +103,15 @@ export class AppComponent {
       title: 'Jordan 4 Pure Money',
       price: 300,
       description: 'Jordan 4 Pure Money Blancas Talla 44',
-      img: 'https://cdn.sneakers123.com/release/960429/jordan-4-retro-pure-money-308497-100.jpg',
+      calificacion: 5,
+      img: 'https://cdn.restocks.net/cdn-cgi/image/width=1000/storage/images/products/308497-100/2.png',
+      fav: false,
       similares: [5],
       review: [
         {
           user: 'Jose Juan',
           desc: 'Las mejores zapatillas que me he comprado en mi vida ;)',
+          calificacion: 5,
         },
       ],
     },
@@ -92,12 +121,11 @@ export class AppComponent {
 
   product = this.productosFiltrados[0];
 
-  
-
   constructor(public dialog: MatDialog) {}
 
   changeData(product: Producto) {
-      this.product = product;
+    this.product = product;
+    this.calificar(product.calificacion);
   }
 
   openDialog(id: number) {
@@ -113,10 +141,10 @@ export class AppComponent {
     });
   }
 
-  filtrarPrecio(precio: number) {
+  filtrarPrecioMax(precio: number) {
     this.productosFiltrados = this.products.filter((product) => {
-      return precio >= product.price; 
-    })
+      return precio >= product.price;
+    });
   }
 
   borrarProducto(producto: Producto) {
@@ -124,27 +152,62 @@ export class AppComponent {
     this.products.splice(i, 1);
     this.productosFiltrados = this.products;
     this.product = this.productosFiltrados[0];
-  }
-  //TODO : Find tomorrow
-  getProductById(id: number): Producto | undefined {
-    const hola = this.products.find((product) => {
-      return product.id === id
-    });
-    console.log(hola);
-    return hola;
+    this.calificar(this.product.calificacion);
   }
 
-  resetProducts() {
+  getProductById(id: number): Producto | undefined {
+    return this.products.find((product) => {
+      return product.id === id;
+    });
+  }
+
+  resetAllProductsFilter(num: number) {
     this.productosFiltrados = this.products;
+    this.filtro = 0;
+    this.busqueda = '';
   }
 
   isEmptySubList(product: Producto, key: keyproduct) {
     return product[key]?.length;
   }
 
-  search(search: string) {
+  searchProducts(search: string) {
     this.productosFiltrados = this.products.filter((product) => {
       return product.title.includes(search);
     });
+  }
+
+  changeFav(product: Producto) {
+    let indice = this.products.indexOf(product);
+    if (this.products[indice].fav) this.products[indice].fav = false;
+    else this.products[indice].fav = true;
+  }
+
+  calificar(calificacion: number) {
+    for (let indiceEstrella = 0; indiceEstrella < 5; indiceEstrella++) {
+      let src = document.getElementById(indiceEstrella + 1 + 'star');
+      if (indiceEstrella < calificacion) {
+        let cal = this.calificando(calificacion);
+        src!.style.color = cal;
+      } else {
+        src!.style.color = 'lightgrey';
+      }
+    }
+  }
+
+  calificando(calificacion: number): string {
+    if (calificacion < 3) {
+      return 'red';
+    } else if (calificacion >= 4) {
+      return 'yellow';
+    } else if (calificacion >= 3) {
+      return 'orange';
+    } else return 'lightgrey';
+  }
+
+  calificarClick(cali: clickCali) {
+    this.calificar(cali.calificacion);
+    let indice = this.products.indexOf(cali.producto);
+    this.products[indice].calificacion = cali.calificacion;
   }
 }

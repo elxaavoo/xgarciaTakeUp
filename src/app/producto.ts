@@ -6,6 +6,8 @@ export interface Producto {
   price: number;
   description: string;
   img: string;
+  fav?: boolean;
+  calificacion: number;
   similares?: number[];
   review?: Review[];
 }
