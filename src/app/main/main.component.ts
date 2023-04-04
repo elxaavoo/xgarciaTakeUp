@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { clickCali } from '../clickCali';
-import { Producto } from '../producto';
+import { Producto } from '../interfaces/producto.interface';
 
 @Component({
   selector: 'app-main',

@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Producto } from '../producto';
+import { Producto } from '../interfaces/producto.interface';
 
 @Component({
   selector: 'app-dialog-producto',
   templateUrl: './dialog-producto.component.html',
-  styleUrls: ['./dialog-producto.component.scss']
+  styleUrls: ['./dialog-producto.component.scss'],
 })
 export class DialogProductoComponent implements OnInit {
   constructor(
@@ -13,12 +13,9 @@ export class DialogProductoComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Producto
   ) {}
 
-    ngOnInit(){
+  ngOnInit() {}
 
-    }
-
-    closeModal(){
-      this.dialogRef.close();
-    }
-
+  closeModal() {
+    this.dialogRef.close();
+  }
 }

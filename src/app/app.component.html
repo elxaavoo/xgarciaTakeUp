@@ -1,20 +1,5 @@
 <app-header></app-header>
-<app-aside-main [productos]="products"
-                [filtroPrecio]="filtro"
-                [busquedaFiltro]="busqueda"
-                [productsFiltrados]="productosFiltrados"
-                [selectedProduct]="product"
-                (search)="searchProducts($event)"
-                (filtrarPrecio)="filtrarPrecioMax($event)"
-                (resetProducts)="resetAllProductsFilter($event)"
-                (changeSelectedProduct)="changeData($event)"
-                (knowIsEsmptySubList)="isEmptySubList($event,$event)"
-                (giveProductById)="getProductById($event)"
-                (giveEventToOpenDialog)="openDialog($event)"
-                (deleteProduct)="borrarProducto($event)"
-                (changeFavProfuct)="changeFav($event)"
-                (calificarProduct)="calificar($event)"
-                (calificarProductClick)="calificarClick($event)"></app-aside-main>
+<router-outlet></router-outlet>
 
 
 

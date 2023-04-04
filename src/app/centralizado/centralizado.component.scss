@@ -1,0 +1,85 @@
+.navbar .navbar-nav .nav-item .nav-link {
+    padding: 0 0.5em;
+  }
+
+.nav-link {
+    border-right: 1px solid #dedede;
+  }
+
+.aside_and_main{
+    display: inline-block;
+    vertical-align:top
+}  
+
+aside{
+    width: 20%;
+    min-height: 1000px;
+    height: 100%;
+    margin: 0;
+    display: inline-block;
+    vertical-align:top
+}
+
+.hov{
+    color: black;
+    :hover{
+        transition: 0.3s;
+        color: rgb(37, 37, 37);
+        font-weight: bold;
+    }
+}
+
+.cdk-overlay-pane{
+    position: absolute;
+}
+
+
+
+main{
+    display: inline-block;
+    width: 80%;
+    height: 100%;
+    vertical-align:top
+}
+
+.b1 button{
+    margin: 0;
+    width: 100%;
+}
+
+.producto_lateral{
+    display: inline-block;
+    p{
+        display: inline-block;
+    }
+    img{
+        width: 5%;
+        height: 5%; 
+        display: inline-block;
+        margin-left: 55%;
+    }
+}
+
+.img_product{
+    img{
+      max-height: 400px;
+      width: 100%;
+      object-fit: contain;
+    } 
+}
+
+.similares{
+    width: 75px;
+    height: 75px;
+}
+
+.review{
+    background-color: rgb(218, 218, 218);
+    padding: 20px;
+    margin: 15px;
+    border-radius: 40px;
+}
+
+.cdk-overlay-pane{
+    margin: 0 auto !important;
+}
