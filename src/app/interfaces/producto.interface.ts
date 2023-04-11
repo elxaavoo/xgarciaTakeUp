@@ -9,5 +9,6 @@ export interface Producto {
   fav?: boolean;
   calificacion: number;
   similares?: number[];
+  date: Date;
   review?: Review[];
 }

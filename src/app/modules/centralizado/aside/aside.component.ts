@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Producto } from '../interfaces/producto.interface';
+import { Producto } from '../../../interfaces/producto.interface';
 
 @Component({
   selector: 'app-aside',

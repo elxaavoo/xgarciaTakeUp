@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { clickCali } from '../clickCali';
-import { Producto } from '../interfaces/producto.interface';
+import { clickCali } from '../../../interfaces/clickCali';
+import { Producto } from '../../../interfaces/producto.interface';
 
 @Component({
   selector: 'app-main',
@@ -55,6 +55,6 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.calificar(this.selectedProduct.calificacion);
+    this.calificar(this.selectedProduct?.calificacion);
   }
 }

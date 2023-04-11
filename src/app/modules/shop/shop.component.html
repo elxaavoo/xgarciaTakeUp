@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center" >Cesta</h1>
+        </div>
+        <div *ngIf="!shopProducts[firstIndexShopProduct]; else shopDiv"><br><br><br>
+            <h4 class="text-center">No hay productos en la cesta</h4>
+        </div>
+        <ng-template #shopDiv>
+            <div *ngFor="let productoShop of shopProducts" class="col-4">
+                <div class="card">
+                    <img [src]="productoShop.img" alt="cosetes" class="shopImg card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{productoShop.title}}</h5>
+                        <p class="card-text">Price: ${{productoShop.price}}</p>
+                        <button type="button" class="btn btn-dark">Buy</button>
+                    </div>
+                </div>
+            </div> 
+        </ng-template>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 <!--MAIN-->
-  <main class="border p-4" [ngClass]="{'darkMode': selectedProduct.fav, 'lightMode': !selectedProduct.fav}">
+  <main *ngIf="selectedProduct" class="border p-4" [ngClass]="{'darkMode': selectedProduct.fav, 'lightMode': !selectedProduct.fav}">
     <!-- PRODUCTO -->
     <div class="row">
       <div class="col-6 img_product">
@@ -7,7 +7,7 @@
       </div>
       <div class="col-6">
         <div class="p-2">
-          <span class="ib"><h1>{{selectedProduct.title}}</h1> <span *ngIf="selectedProduct.fav; else otherButton"><button><img (click)="changeFav(selectedProduct)" src="../../assets/fillCora.png" alt="../../assets/cora.png" class="cora" ></button></span></span>
+          <span class="ib"><h1>{{selectedProduct.title}}</h1> <span *ngIf="selectedProduct?.fav; else otherButton"><button><img (click)="changeFav(selectedProduct)" src="../../assets/fillCora.png" alt="../../assets/cora.png" class="cora" ></button></span></span>
           <ng-template #otherButton>
             <button><img (click)="changeFav(selectedProduct)" src="../../assets/cora.png" alt="fillCora" class="cora" ></button>
           </ng-template>
@@ -23,6 +23,7 @@
           <hr>
           <p>{{selectedProduct.description}}</p>
           <hr>
+          <p>{{selectedProduct.date | date: 'dd/MM/YYYY HH:ss'}}</p>
           <button type="button " class="btn btn-dark my-2" (click)="borrarProducto(selectedProduct)">Delete Item</button>
         </div>
       </div>
