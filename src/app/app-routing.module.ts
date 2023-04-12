@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AboutComponent } from './modules/about/about.component';
-import { CentralizadoComponent } from './modules/centralizado/centralizado.component';
 import { PermissionsGuard } from './permissions.guard';
 
 const routes: Routes = [
@@ -35,8 +33,13 @@ const routes: Routes = [
   {
     path: 'shop',
     loadChildren: () =>
-      import('./modules/shop/shop.module').then(
-        (module) => module.ShopModule
+      import('./modules/shop/shop.module').then((module) => module.ShopModule),
+  },
+  {
+    path: 'products',
+    loadChildren: () =>
+      import('./modules/productos/productos.module').then(
+        (module) => module.ProductosModule
       ),
   },
 ];

@@ -1,0 +1,41 @@
+.container-grey{
+    background-color: rgb(244, 244, 244);
+    border-radius: 10px;
+}
+
+.imgSelectedSimilar{
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.imgCora{
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    float: right;
+}
+
+.productStyle{
+   background-color: white;
+   border-radius: 10px;
+   padding: 10px; 
+}
+
+.ibb{
+    display: inline-block;
+    width: 100%;
+    h6{
+        display: inline-block;
+        max-width: 120px;
+        min-width: 120px;
+    }
+    img{
+        height: 20px;
+        width: 20px;
+        vertical-align: top;
+        float: right;  
+    }
+    
+    
+}

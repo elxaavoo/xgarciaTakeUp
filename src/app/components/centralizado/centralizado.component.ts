@@ -28,15 +28,13 @@ export class CentralizadoComponent implements OnInit {
 
   constructor(private dbmanager: DbmanagerService, public dialog: MatDialog) {}
   ngOnInit(): void {
-    this.dbmanager.$products.subscribe(
-      {
-        next: (response) => {
-          this.products = response;
-          this.productosFiltrados = this.products;
-          this.product = this.productosFiltrados[0];
-        } 
-      }
-    )
+    this.dbmanager.$products.subscribe({
+      next: (response) => {
+        this.products = response;
+        this.productosFiltrados = this.products;
+        this.product = this.productosFiltrados[0];
+      },
+    });
   }
 
   title = 'takeup_clone';
@@ -105,9 +103,7 @@ export class CentralizadoComponent implements OnInit {
 
   changeFav(product: Producto) {
     let indice = this.products.indexOf(product);
-    if (this.products[indice].fav) this.products[indice].fav = false;
-    else this.products[indice].fav = true;
-    this.dbmanager.updateProducts(this.products);
+    this.products[indice].fav = !this.products[indice].fav;
   }
 
   calificar(calificacion: number) {

@@ -8,9 +8,8 @@ describe('CentralizadoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CentralizadoComponent ]
-    })
-    .compileComponents();
+      declarations: [CentralizadoComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CentralizadoComponent);
     component = fixture.componentInstance;

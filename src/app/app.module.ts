@@ -10,7 +10,7 @@ import { AboutModule } from './modules/about/about.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CentralizadoModule } from './modules/centralizado/centralizado.module';
-import { HeaderComponent } from './modules/header/header.component';
+import { HeaderComponent } from './components/header/header.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DateInterceptorInterceptor } from './interceptors/date-interceptor.interceptor';
 
@@ -30,9 +30,11 @@ import { DateInterceptorInterceptor } from './interceptors/date-interceptor.inte
   ],
   exports: [],
   providers: [
-    { provide: HTTP_INTERCEPTORS,
-      useClass: DateInterceptorInterceptor ,
-      multi: true},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: DateInterceptorInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

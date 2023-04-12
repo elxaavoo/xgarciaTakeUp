@@ -1,0 +1,156 @@
+<div class="container">
+  <form (ngSubmit)="addProduct()" [formGroup]="productForm" autocomplete="off">
+    <div class="row">
+      <div class="col-12">
+        <h1>Create new product</h1>
+        <p>Use form to create new product</p>
+        <br /><br />
+      </div>
+    </div>
+    <div
+      class="row container-grey w-75 p-3 border border-secondary justify-content-center mx-auto"
+    >
+      <div class="col-8 border-end border-secondary">
+        <h2 class="text-center">Product Info</h2>
+        <br /><br />
+        <div class="row">
+          <div class="col-6 form-group">
+            <label for="productName"><strong>Produt Name</strong></label>
+            <input
+              type="text"
+              class="form-control"
+              id="productName"
+              placeholder="Type name here"
+              formControlName="title"
+              name="title"
+              required
+            />
+            <small *ngIf="validar('title')" id="nameError" class="form-text text-danger">
+                El campo no puede estar vacio.
+            </small>
+          </div>
+          <div class="col-6 form-group">
+            <label for="productPrice"><strong>Price</strong></label>
+            <input
+              type="number"
+              class="form-control"
+              id="productPrice"
+              placeholder="Type price here"
+              formControlName="price"
+              name="price"
+              required
+            />
+            <small *ngIf="validar('price')" id="nameError" class="form-text text-danger">
+                El campo no puede estar vacio.
+            </small>
+          </div>
+
+          <div class="col-12 mt-3 mb-3 form-group">
+            <label for="imgProduct "><strong>Img URL</strong></label>
+            <input
+              type="text"
+              class="form-control"
+              id="imgProduct"
+              placeholder="Type URL here"
+              formControlName="img"
+              name="img"
+              required
+            />
+            <small *ngIf="validar('img')" id="nameError" class="form-text text-danger">
+                El campo no puede estar vacio.
+            </small>
+          </div>
+
+          <div class="col-12 mt-3 mb-3 form-group">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="imgSelectedSimilar"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Favorite
+              </label>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="description"><strong>Description</strong></label>
+              <input
+                class="form-control"
+                id="description"
+                rows="3"
+                placeholder="Type your massage here"
+                formControlName="description"
+                name="description"
+                required
+              />
+              <small *ngIf="validar('description')" id="nameError" class="form-text text-danger">
+                El campo no puede estar vacio.
+            </small>
+            </div>
+          </div>
+        </div>
+        <br />
+        <button type="submit" [disabled]="productForm.invalid" class="btn btn-dark mx-auto w-25">Save</button>
+        <br>
+        <div class="row">
+          <div class="col-6 offset-3">
+            <p *ngIf="formProduct">{{ formProduct | json }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <h2 class="text-center">Select similar</h2>
+        <hr />
+        <div
+          *ngFor="let product of products; let index = index"
+          class="my-3 productStyle"
+        >
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="imgSelectedSimilar_{{ product.id }}"
+            />
+            <label
+              class="form-check-label"
+              for="imgSelectedSimilar_{{ product.id }}"
+            >
+              <div class="row">
+                <div class="col-4">
+                  <img
+                    [src]="product.img"
+                    alt=""
+                    class="imgSelectedSimilar"
+                  />
+                </div>
+                <div class="col-8">
+                  <span class="ibb">
+                    <h6>{{ product.title }}</h6>
+                    <span *ngIf="product.fav; else emptyCora" class="rightCora">
+                      <img
+                        src="../../../assets/fillCora.png"
+                        alt=""
+                        class="imgCora"
+                      />
+                    </span>
+                    <ng-template #emptyCora>
+                      <img
+                        src="../../../assets/cora.png"
+                        alt=""
+                        class="imgCora"
+                      /> </ng-template
+                  ></span>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br /><br /><br /><br />
+  </form>
+</div>
