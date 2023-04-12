@@ -18,7 +18,6 @@ export class MainComponent implements OnInit {
   @Output() changeFavProfuct = new EventEmitter<Producto>();
   @Output() calificarProduct = new EventEmitter<number>();
   @Output() calificarProductClick = new EventEmitter<clickCali>();
-
   getProductById(id: number): Producto | undefined {
     return this.productos.find((product) => {
       return product.id === id;

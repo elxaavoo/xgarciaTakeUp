@@ -33,9 +33,11 @@ export class ProductosComponent implements OnInit {
     price: [null, Validators.required, Validators.min(1), Validators.max(999)],
     description: [
       null,
-      Validators.required,
-      Validators.maxLength(350),
-      Validators.pattern(this.descriptionPatters),
+      [
+        Validators.required,
+        Validators.maxLength(350),
+        Validators.pattern(this.descriptionPatters),
+      ],
     ],
     img: [null, Validators.required],
     fav: [false],

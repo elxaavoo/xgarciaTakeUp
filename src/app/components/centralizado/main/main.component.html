@@ -1,65 +1,123 @@
 <!--MAIN-->
-  <main *ngIf="selectedProduct" class="border p-4" [ngClass]="{'darkMode': selectedProduct.fav, 'lightMode': !selectedProduct.fav}">
-    <!-- PRODUCTO -->
-    <div class="row">
-      <div class="col-6 img_product">
-        <img [src]="selectedProduct.img" alt="">
-      </div>
-      <div class="col-6">
-        <div class="p-2">
-          <span class="ib"><h1>{{selectedProduct.title}}</h1> <span *ngIf="selectedProduct?.fav; else otherButton"><button><img (click)="changeFav(selectedProduct)" src="../../assets/fillCora.png" alt="../../assets/cora.png" class="cora" ></button></span></span>
-          <ng-template #otherButton>
-            <button><img (click)="changeFav(selectedProduct)" src="../../assets/cora.png" alt="fillCora" class="cora" ></button>
-          </ng-template>
-          <div>
-            <a (click)="calificarClick(1,selectedProduct)"><span class="fa fa-star estrella" id="1star" ></span></a>
-            <a (click)="calificarClick(2,selectedProduct)"><span class="fa fa-star estrella" id="2star" ></span></a>
-            <a (click)="calificarClick(3,selectedProduct)"><span class="fa fa-star estrella" id="3star" ></span></a>
-            <a (click)="calificarClick(4,selectedProduct)"><span class="fa fa-star estrella" id="4star" ></span></a>
-            <a (click)="calificarClick(5,selectedProduct)"><span class="fa fa-star estrella" id="5star" ></span></a>
-          </div>
-          <hr>
-          <h3>${{selectedProduct.price}}</h3>
-          <hr>
-          <p>{{selectedProduct.description}}</p>
-          <hr>
-          <p>{{selectedProduct.date | date: 'dd/MM/YYYY HH:ss'}}</p>
-          <button type="button " class="btn btn-dark my-2" (click)="borrarProducto(selectedProduct)">Delete Item</button>
+<main
+  *ngIf="selectedProduct"
+  class="border p-4"
+  [ngClass]="{ darkMode: selectedProduct.fav, lightMode: !selectedProduct.fav }"
+>
+  <!-- PRODUCTO -->
+  <div class="row">
+    <div class="col-6 img_product">
+      <img [src]="selectedProduct.img" alt="" />
+    </div>
+    <div class="col-6">
+      <div class="p-2">
+        <span class="ib"
+          ><h1>{{ selectedProduct.title }}</h1>
+          <span *ngIf="selectedProduct?.fav; else otherButton"
+            ><button>
+              <img
+                (click)="changeFav(selectedProduct)"
+                src="../../assets/fillCora.png"
+                alt="../../assets/cora.png"
+                class="cora"
+              /></button></span
+        ></span>
+        <ng-template #otherButton>
+          <button>
+            <img
+              (click)="changeFav(selectedProduct)"
+              src="../../assets/cora.png"
+              alt="fillCora"
+              class="cora"
+            />
+          </button>
+        </ng-template>
+        <div>
+          <a (click)="calificarClick(1, selectedProduct)"
+            ><span class="fa fa-star estrella" id="1star"></span
+          ></a>
+          <a (click)="calificarClick(2, selectedProduct)"
+            ><span class="fa fa-star estrella" id="2star"></span
+          ></a>
+          <a (click)="calificarClick(3, selectedProduct)"
+            ><span class="fa fa-star estrella" id="3star"></span
+          ></a>
+          <a (click)="calificarClick(4, selectedProduct)"
+            ><span class="fa fa-star estrella" id="4star"></span
+          ></a>
+          <a (click)="calificarClick(5, selectedProduct)"
+            ><span class="fa fa-star estrella" id="5star"></span
+          ></a>
         </div>
+        <hr />
+        <h3>${{ selectedProduct.price }}</h3>
+        <hr />
+        <p>{{ selectedProduct.description }}</p>
+        <hr />
+        <p>{{ selectedProduct.date | date : "dd/MM/YYYY HH:ss" }}</p>
+        <button
+          type="button "
+          class="btn btn-dark my-2"
+          (click)="borrarProducto(selectedProduct)"
+        >
+          Delete Item
+        </button>
       </div>
-      <!-- PRODUCTOS SIMILARES -->
-      <div class="row border-bottom border-top" >
-        <div class="text-center">
-          <h1 class="mt-4">Similar Products</h1>
-          <div *ngIf="isEmptySubList(selectedProduct,'similares'); else elseBlock">
-              <p class="text-center
-              ">No hay ningún producto similar.</p>
-          </div>
-          <ng-template #elseBlock>
-            <div class="row">
-              <div *ngFor="let productID of selectedProduct.similares; let index = index" class="col-6" >
-                <img [src]="getProductById(productID)?.img" alt="imagen" class="similares" (click)="openDialog(productID)">
-                <h5>{{getProductById(productID)?.title}}</h5>
-                <p>${{getProductById(productID)?.price}}</p>
-              </div>
-            </div>
-          </ng-template>
+    </div>
+    <!-- PRODUCTOS SIMILARES -->
+    <div class="row border-bottom border-top">
+      <div class="text-center">
+        <h1 class="mt-4">Similar Products</h1>
+        <div
+          *ngIf="isEmptySubList(selectedProduct, 'similares'); else elseBlock"
+        >
+          <p class="text-center">No hay ningún producto similar.</p>
         </div>
-      </div>
-     <!-- REVIEWS DE LA GENTE -->
-      <div class="row p-5 border-bottom">
-        <h1>Reviews</h1>
-        <div *ngIf="isEmptySubList(selectedProduct,'review'); else elseReview">
-            <p class="text-center">No hay ninguna review.</p>
-          </div>
-          <!-- TEMPLATE ( Si hay reviews ) -->
-          <ng-template #elseReview>
-            <div class="row">
-              <app-review *ngFor="let review of selectedProduct.review;" class="col-12 review" [review]="review"></app-review>
+        <ng-template #elseBlock>
+          <div class="row">
+            <div
+              *ngFor="
+                let productID of selectedProduct.similares;
+                let index = index
+              "
+              class="col-6"
+            >
+              <img
+                [src]="getProductById(productID)?.img"
+                alt="imagen"
+                class="similares"
+                (click)="openDialog(productID)"
+              />
+              <h5>{{ getProductById(productID)?.title }}</h5>
+              <p>${{ getProductById(productID)?.price }}</p>
             </div>
-          </ng-template>
+          </div>
+        </ng-template>
       </div>
-    </div> 
-    <!-- SCRIP MAIN -->
-    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
-  </main>
+    </div>
+    <!-- REVIEWS DE LA GENTE -->
+    <div class="row p-5 border-bottom">
+      <h1>Reviews</h1>
+      <div *ngIf="isEmptySubList(selectedProduct, 'review'); else elseReview">
+        <p class="text-center">No hay ninguna review.</p>
+      </div>
+      <!-- TEMPLATE ( Si hay reviews ) -->
+      <ng-template #elseReview>
+        <div class="row">
+          <app-review
+            *ngFor="let review of selectedProduct.review"
+            class="col-12 review"
+            [review]="review"
+          ></app-review>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <!-- SCRIP MAIN -->
+  <script
+    defer
+    src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+    integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
+    crossorigin="anonymous"
+  ></script>
+</main>
